@@ -1,8 +1,9 @@
-import React from 'react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { NoteContext } from '../context/NoteContext';
 
+function AddNote(){
 
-function AddNote({ handleAddNote }){
+  const {addNote}=useContext(NoteContext);
   const [noteText, setNoteText] = useState('');
   const [date, setdate] = useState('');
   const characterLimit = 200;
@@ -30,7 +31,7 @@ function AddNote({ handleAddNote }){
 
   const handleSaveClick = () => {
     if(noteText.trim().length > 0){
-        handleAddNote(noteText,date)
+        addNote(noteText,date)
         setNoteText('');
     }
   };
@@ -39,10 +40,12 @@ function AddNote({ handleAddNote }){
   <div className="bg-[#67d7cc] rounded-lg p-4 flex flex-col  min-h-44 justify-between">
     <span>Content</span>
       <textarea 
-      className='focus:outline-none resize-none bg-[#67d7cc] border-black border-[1px]' 
-      rows="5" 
-      cols="8" 
-      placeholder="Type to add a note" value={noteText} onChange={handleChange} required></textarea>
+        className='focus:outline-none resize-none bg-[#67d7cc] border-black border-[1px]' 
+        rows="5" 
+        cols="8" 
+        placeholder="Type to add a note" 
+        value={noteText} 
+        onChange={handleChange} required></textarea>
     
     <span>Date</span>
     <input type="date" className='bg-[#67d7cc] focus:outline-none border-black border-[1px]' onChange={handleDateChange}/>
