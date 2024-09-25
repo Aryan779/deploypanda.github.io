@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
-import { NoteContext } from '../context/NoteContext';
+import { NoteContext } from './context/NoteContext';
 
 function AddNote(){
 
   const {addNote}=useContext(NoteContext);
-  
+
   const [noteText, setNoteText] = useState('');
   const [date, setdate] = useState('');
   const characterLimit = 200;
