@@ -13,9 +13,11 @@ function App() {
     {
       id: nanoid(),
       text: "This is my first note!",
-      date: "02/14/2022"
+      date: "02/14/2022",
+      toEdit: false
     } 
   ]);
+
 
 const [searchText, setSearchText] = useState('');
 
@@ -41,7 +43,8 @@ const addNote = (text,date) => {
   const newNote = {
     id: id,
     text: text,
-    date: date
+    date: date,
+    toEdit: false
   }
 
   const newNotes = [...notes, newNote];
@@ -54,9 +57,34 @@ const deleteNote = (id) => {
   setNotes(newNotes);
 }
 
+const editNote = (id) => {
+  const newNotes = notes.map((note) => {
+    if (note.id === id) {
+      return { ...note, toEdit: true }; // Update `toEdit` to true for the matching note
+    } else {
+      return note; // Return other notes unchanged
+    }
+  });
+    
+  setNotes(newNotes);
+  }
+
+  const addEditedNote = (id,text,date) => {
+
+    const newNotes = notes.map((note) => {
+      if (note.id === id) {
+        return { id:id, text:text, date:date, toEdit:false };
+      } else {
+        return note;
+      }
+    });
+      
+    setNotes(newNotes);
+  };
+
   return ( 
     <>
-      <NoteContext.Provider value={{addNote,deleteNote}}>
+      <NoteContext.Provider value={{addNote,deleteNote,editNote,addEditedNote}}>
         <div className={`${darkMode && 'bg-black h1-white'}`}>
           <div className="mx-auto max-w-[1040px] min-h-screen px-3 ">
             <Header handleToggleDarkMode={setDarkMode} />

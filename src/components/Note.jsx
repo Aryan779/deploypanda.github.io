@@ -4,7 +4,7 @@ import { NoteContext } from '../context/NoteContext';
 
 function Note({ id, text, date}){
 
-  const {deleteNote} = useContext(NoteContext);
+  const {deleteNote,editNote} = useContext(NoteContext);
 
   return(
     <>
@@ -12,7 +12,12 @@ function Note({ id, text, date}){
       <span>{text}</span>
       <div className="flex items-center justify-between">
         <small> {date}</small>
-        <MdDeleteForever onClick={() => deleteNote(id)} className="cursor-pointer"  size="1em" />
+        <div className='flex items-center'>
+        <button className="bg-[#e1e1e1] border-0 rounded-xl w-12 hover:bg-blue-700 hover:cursor-pointer mr-1" onClick={()=> editNote(id)} >Edit</button>
+        <MdDeleteForever onClick={() => deleteNote(id)} className="cursor-pointer ml-1"  size="1em" />
+            
+        </div>
+        
       </div>
     </div>
     </>
